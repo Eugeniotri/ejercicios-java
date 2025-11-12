@@ -1,0 +1,11 @@
+let texto = "Hola , soy un string";
+let numero = 2025;
+let float = 3.14;
+let activo = true;
+let sinDefinir ;
+let vacio = null;
+console .log(typeof texto);
+console.log(typeof numero);
+console.log(typeof float);
+console.log(typeof sinDefinir);
+console.log(typeof vacio);
