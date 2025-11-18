@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>areacirculo</title>
+</head>
+<body>
+    <h1>ÁREA CIRCULO</h1>
+    <p>Calcula el área del círculo con su radio</p>
+    <script>
+        let r = Number(prompt("Introduce el radio de tu círculo y te digo área"));
+        if(isNaN(r)){alert("Introduce un número válido")
+    }else{
+        let area = Math.PI*r*r;
+        alert("El área del círculo cuyo radio es "+ r + " es " + area.toFixed(2));
+    }
+    </script>
+    
+</body>
+</html>

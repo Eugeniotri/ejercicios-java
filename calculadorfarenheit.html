@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+</head>
+<body>
+    <h1>CALCULADORA de grados</h1>
+    <p>Introduce la temperatura en grados celsius y convierto a grados farenheit</p>
+    <script>
+        let g=Number(prompt("Introduce la temperatura en celsius"));
+        if(isNaN(g)){alert("Introduce un numero entero")
+    }else{ 
+        let f= Number(g*9/5+32);
+        alert(`la temperatura en grados farenheit es ${f}`)
+    }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>máximode tres</title>
+</head>
+<body>
+    <h1>Máximo de tres</h1>
+    <p>Introduce tres números y di cual es el máximo</p>
+    <script>
+        let a = Number(prompt("Introduce el primer número"));
+        let b = Number(prompt("Introduce el segundo número"));
+        let c = Number(prompt("Introduce el tercer número"));
+        if([a,b,c].some(x=>isNaN(x))){
+            alert("Todo son valores númericos");
+        } else{
+            let maximo=Math.max(a,b,c);
+            alert(`el mayor de ${a}, ${b},${c} es ${maximo}`);
+        }
+        
+    </script>
+    
+</body>
+</html>

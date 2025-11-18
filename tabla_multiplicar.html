@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tabla multiplicar</title>
+</head>
+<body>
+    <h1>tabla multiplicar</h1>
+    <p> muestra en consola tabla multiplicar de un número dado</p>
+    <script>
+        let n= Number(prompt("Introduce un número del 1 al 10"));
+        if(isNaN(n)){alert("Introduce un número válido")}
+        else{
+            let a="";
+            for(let i=0;i<=10;i++){
+               a+= (`${n}x${i}=${n*i}.  `);}
+               alert(a);
+            }
+        
+    </script>
+    
+</body>
+</html>
