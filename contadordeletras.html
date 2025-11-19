@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>contador de letras</title>
+</head>
+
+<body>
+    <h1>Contador de letras</h1>
+    <p>Escribe una frase y te digo la letra q quieres</p>
+    <script>
+        let frase = prompt("Escribe una frase").toUpperCase();
+        let letra = prompt("Elige q letra quieres contar").toUpperCase();
+        let acumulador = 0;
+        
+        for (let i = 0; i <= frase.length; i++) {
+            if (frase[i] === letra) {
+                acumulador++;
+
+            }
+        }
+        if (acumulador > 0) {
+            alert(`la letra ${letra} ha aparecido ${acumulador} veces`)
+        } else {
+            alert(`No existe la letra ${letra}`);
+        }
+
+    </script>
+
+</body>
+
+</html>
