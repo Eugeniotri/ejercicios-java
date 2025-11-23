@@ -1,0 +1,20 @@
+/*Método	¿Qué hace?	Modifica el array	Ejemplo
+push()	Añade elemento al final	✔	arr.push(4)
+pop()	Elimina el último elemento	✔	arr.pop()
+unshift()	Añade elemento al inicio	✔	arr.unshift(4)
+shift()	Elimina el primer elemento	✔	arr.shift()
+split() (string → array)	Divide un string en array	❌	"a,b,c".split(",")
+forEach()	Recorre todo el array	❌	arr.forEach(x => ...)
+reverse()	Invierte el orden	✔	arr.reverse()
+concat()	Une arrays	❌	arr1.concat(arr2)
+sort()	Ordena (como strings)	✔	arr.sort()
+🔵 Métodos muy usados que debes dominar
+Método	¿Qué hace?	Modifica el array	Ejemplo
+map()	Crea un array nuevo transformando cada elemento	❌	arr.map(x => x*2)
+filter()	Devuelve los que cumplan condición	❌	arr.filter(x => x>10)
+find()	Primer elemento que cumple condición	❌	arr.find(x => x>10)
+findIndex()	Índice del primero que cumple	❌	arr.findIndex(x>10)
+reduce()	Reduce a un solo valor	❌	arr.reduce((a,b)=>a+b)
+includes()	Comprueba si un valor existe	❌	arr.includes(5)
+slice()	Copia parte del array	❌	arr.slice(1,3)
+splice()	Añade / elimina / reemplaza elementos	✔	arr.splice(2,1)

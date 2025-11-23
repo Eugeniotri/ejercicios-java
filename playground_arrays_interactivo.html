@@ -1,0 +1,633 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Playground interactivo: Métodos de Arrays en JavaScript</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0f172a;
+      color: #e5e7eb;
+    }
+    header {
+      padding: 1.5rem 2rem;
+      background: #020617;
+      border-bottom: 1px solid #1f2937;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.6rem;
+    }
+    header p {
+      margin: 0.35rem 0 0;
+      font-size: 0.9rem;
+      color: #9ca3af;
+    }
+    main {
+      padding: 1.5rem 2rem 3rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 1.4rem;
+      align-items: flex-start;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      align-items: center;
+    }
+    .toolbar input {
+      padding: 0.45rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid #4b5563;
+      background: #020617;
+      color: #e5e7eb;
+      min-width: 220px;
+    }
+    .toolbar button {
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      background: #1d4ed8;
+      color: #e5e7eb;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+    .toolbar button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+      background: #2563eb;
+    }
+    .toolbar button.secondary {
+      background: #111827;
+      border: 1px solid #374151;
+    }
+    .toolbar button.secondary:hover {
+      background: #1f2937;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.85rem;
+    }
+    .card {
+      background: linear-gradient(135deg, #020617, #111827);
+      border-radius: 1rem;
+      padding: 0.9rem 1rem 1rem;
+      border: 1px solid #1f2937;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+      min-height: 150px;
+    }
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.55);
+      border-color: #2563eb;
+    }
+    .badge {
+      position: absolute;
+      top: 0.7rem;
+      right: 0.9rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: #111827;
+      border: 1px solid #374151;
+      color: #9ca3af;
+    }
+    .badge.mut {
+      border-color: #f97316;
+      color: #fed7aa;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+    }
+    .card h2 code {
+      font-size: 1.05rem;
+      background: #020617;
+      padding: 0.15rem 0.45rem;
+      border-radius: 0.4rem;
+      border: 1px solid #1f2937;
+    }
+    .card small {
+      font-size: 0.75rem;
+      color: #9ca3af;
+    }
+    .card p {
+      margin: 0.4rem 0 0.5rem;
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+    .example {
+      font-size: 0.8rem;
+      background: #020617;
+      border-radius: 0.5rem;
+      padding: 0.4rem 0.5rem;
+      border: 1px solid #1f2937;
+      margin-bottom: 0.45rem;
+      overflow-x: auto;
+    }
+    .example code {
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+    .buttons-row {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-top: 0.2rem;
+    }
+    .buttons-row button {
+      padding: 0.28rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      cursor: pointer;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      transition: background 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+    }
+    .buttons-row button:hover {
+      background: #111827;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+    }
+
+    /* Panel de práctica */
+    .panel {
+      background: linear-gradient(135deg, #020617, #020617);
+      border-radius: 1rem;
+      border: 1px solid #1f2937;
+      padding: 1rem 1.1rem 1.2rem;
+    }
+    .panel h2 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+    .panel p {
+      margin-top: 0.3rem;
+      font-size: 0.85rem;
+      color: #9ca3af;
+    }
+    .panel label {
+      display: block;
+      margin-top: 0.7rem;
+      margin-bottom: 0.25rem;
+      font-size: 0.8rem;
+      color: #d1d5db;
+    }
+    .panel textarea {
+      width: 100%;
+      min-height: 180px;
+      border-radius: 0.6rem;
+      border: 1px solid #374151;
+      background: #020617;
+      color: #e5e7eb;
+      padding: 0.6rem 0.7rem;
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 0.85rem;
+      resize: vertical;
+    }
+    .panel .panel-buttons {
+      margin-top: 0.6rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .panel .panel-buttons button {
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.8rem;
+      background: #1d4ed8;
+      color: #e5e7eb;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+    }
+    .panel .panel-buttons button.secondary {
+      background: #111827;
+      border: 1px solid #374151;
+    }
+    .panel .panel-buttons button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+      background: #2563eb;
+    }
+    .panel .panel-buttons button.secondary:hover {
+      background: #1f2937;
+    }
+
+    .console {
+      margin-top: 0.9rem;
+      background: #020617;
+      border-radius: 0.75rem;
+      border: 1px solid #1f2937;
+      padding: 0.75rem 0.9rem;
+      font-size: 0.8rem;
+    }
+    .console-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .console-header span {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+    .console-header button {
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.7rem;
+      background: #111827;
+      color: #e5e7eb;
+    }
+    .console-output {
+      max-height: 190px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      background: #020617;
+      border-radius: 0.5rem;
+      padding: 0.45rem 0.55rem;
+      border: 1px dashed #374151;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 2rem;
+    }
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+    @media (max-width: 700px) {
+      header, main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Playground interactivo de arrays en JavaScript</h1>
+    <p>
+      Elige un método, manda su ejemplo al editor, cambia el array o el código y pulsa <strong>“Ejecutar código”</strong>.
+    </p>
+  </header>
+
+  <main>
+    <div class="layout">
+      <section>
+        <div class="toolbar">
+          <input id="search" type="text" placeholder="Buscar método (ej: push, filter, map)..." />
+          <button type="button" id="showAll">Mostrar todos</button>
+          <button type="button" class="secondary" data-filter="mut">Modifican el array</button>
+          <button type="button" class="secondary" data-filter="nomut">No modifican el array</button>
+        </div>
+        <section class="cards" id="cardsContainer">
+          <!-- Las tarjetas se insertan con JavaScript -->
+        </section>
+      </section>
+
+      <section>
+        <div class="panel">
+          <h2>Zona de práctica</h2>
+          <p>
+            1) Haz clic en <strong>“Enviar al editor”</strong> en cualquier tarjeta.<br />
+            2) Cambia el array, el método o lo que quieras.<br />
+            3) Pulsa <strong>“Ejecutar código”</strong> para ver el resultado.
+          </p>
+          <label for="codeEditor">Código a ejecutar (puedes editarlo):</label>
+          <textarea id="codeEditor">// Elige un método y pulsa “Enviar al editor” para cargar un ejemplo aquí.
+const numeros = [1, 2, 3];
+const dobles = numeros.map(n => n * 2);
+console.log(dobles);</textarea>
+          <div class="panel-buttons">
+            <button type="button" id="runCode">▶ Ejecutar código</button>
+            <button type="button" id="resetCode" class="secondary">Reiniciar al ejemplo básico</button>
+          </div>
+
+          <div class="console" aria-label="Consola interactiva">
+            <div class="console-header">
+              <span>Consola (resultado de tu código)</span>
+              <button type="button" id="clearConsole">Limpiar</button>
+            </div>
+            <div id="consoleOutput" class="console-output">
+              Escribe código arriba y pulsa <strong>“Ejecutar código”</strong>.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      Practica cambiando arrays y métodos. Si rompes algo, siempre puedes recargar la página 😊
+    </footer>
+  </main>
+
+<script>
+  const methods = [
+    {
+      name: "push",
+      signature: "array.push(valor)",
+      mutates: true,
+      level: "básico",
+      description: "Añade uno o más elementos al final del array.",
+      example: "const nums = [1, 2, 3];\nnums.push(4);\nconsole.log(nums);",
+    },
+    {
+      name: "pop",
+      signature: "array.pop()",
+      mutates: true,
+      level: "básico",
+      description: "Elimina el último elemento del array y lo devuelve.",
+      example: "const letras = ['a', 'b', 'c'];\nconst ultimo = letras.pop();\nconsole.log(letras, ultimo);",
+    },
+    {
+      name: "unshift",
+      signature: "array.unshift(valor)",
+      mutates: true,
+      level: "básico",
+      description: "Añade uno o más elementos al inicio del array.",
+      example: "const nums = [2, 3];\nnums.unshift(1);\nconsole.log(nums);",
+    },
+    {
+      name: "shift",
+      signature: "array.shift()",
+      mutates: true,
+      level: "básico",
+      description: "Elimina el primer elemento del array y lo devuelve.",
+      example: "const letras = ['a', 'b', 'c'];\nconst primero = letras.shift();\nconsole.log(letras, primero);",
+    },
+    {
+      name: "forEach",
+      signature: "array.forEach(callback)",
+      mutates: false,
+      level: "básico",
+      description: "Recorre el array y ejecuta una función por cada elemento.",
+      example: "const nums = [1, 2, 3];\nnums.forEach(n => console.log(n * 2));",
+    },
+    {
+      name: "concat",
+      signature: "array.concat(otroArray)",
+      mutates: false,
+      level: "básico",
+      description: "Une dos o más arrays y devuelve uno nuevo.",
+      example: "const a = [1, 2];\nconst b = [3, 4];\nconst c = a.concat(b);\nconsole.log(c);",
+    },
+    {
+      name: "reverse",
+      signature: "array.reverse()",
+      mutates: true,
+      level: "básico",
+      description: "Invierte el orden de los elementos del array (modifica el original).",
+      example: "const nums = [1, 2, 3];\nnums.reverse();\nconsole.log(nums);",
+    },
+    {
+      name: "sort",
+      signature: "array.sort([funciónComparación])",
+      mutates: true,
+      level: "básico",
+      description: "Ordena los elementos del array. Sin función, ordena como strings.",
+      example: "const nums = [10, 2, 5];\nnums.sort((a, b) => a - b);\nconsole.log(nums);",
+    },
+    {
+      name: "map",
+      signature: "array.map(callback)",
+      mutates: false,
+      level: "intermedio",
+      description: "Crea un array nuevo con el resultado de aplicar una función a cada elemento.",
+      example: "const nums = [1, 2, 3];\nconst dobles = nums.map(n => n * 2);\nconsole.log(dobles);",
+    },
+    {
+      name: "filter",
+      signature: "array.filter(callback)",
+      mutates: false,
+      level: "intermedio",
+      description: "Devuelve un array nuevo con los elementos que cumplen una condición.",
+      example: "const nums = [3, 8, 12, 5];\nconst mayores = nums.filter(n => n > 7);\nconsole.log(mayores);",
+    },
+    {
+      name: "find",
+      signature: "array.find(callback)",
+      mutates: false,
+      level: "intermedio",
+      description: "Devuelve el primer elemento que cumple una condición.",
+      example: "const nums = [3, 8, 12, 5];\nconst primero = nums.find(n => n > 7);\nconsole.log(primero);",
+    },
+    {
+      name: "findIndex",
+      signature: "array.findIndex(callback)",
+      mutates: false,
+      level: "intermedio",
+      description: "Devuelve el índice del primer elemento que cumple la condición.",
+      example: "const nums = [3, 8, 12, 5];\nconst pos = nums.findIndex(n => n > 7);\nconsole.log(pos);",
+    },
+    {
+      name: "reduce",
+      signature: "array.reduce(callback, valorInicial)",
+      mutates: false,
+      level: "intermedio",
+      description: "Reduce el array a un único valor (por ejemplo, la suma de todos los elementos).",
+      example: "const nums = [1, 2, 3, 4];\nconst suma = nums.reduce((acc, n) => acc + n, 0);\nconsole.log(suma);",
+    },
+    {
+      name: "includes",
+      signature: "array.includes(valor)",
+      mutates: false,
+      level: "básico",
+      description: "Comprueba si el array contiene un valor, devuelve true o false.",
+      example: "const letras = ['a', 'b', 'c'];\nconsole.log(letras.includes('b'));",
+    },
+    {
+      name: "slice",
+      signature: "array.slice(inicio, fin)",
+      mutates: false,
+      level: "intermedio",
+      description: "Devuelve una copia de una parte del array. No modifica el original.",
+      example: "const nums = [0, 1, 2, 3, 4];\nconst parte = nums.slice(1, 4);\nconsole.log(parte);",
+    },
+    {
+      name: "splice",
+      signature: "array.splice(inicio, cuantos, ...añadir)",
+      mutates: true,
+      level: "intermedio",
+      description: "Añade, elimina o reemplaza elementos del array (sí modifica el original).",
+      example: "const nums = [1, 2, 3, 4];\nnums.splice(1, 2, 99);\nconsole.log(nums);",
+    }
+  ];
+
+  const cardsContainer = document.getElementById("cardsContainer");
+  const consoleOutput = document.getElementById("consoleOutput");
+  const searchInput = document.getElementById("search");
+  const showAllButton = document.getElementById("showAll");
+  const filterButtons = document.querySelectorAll("button[data-filter]");
+  const codeEditor = document.getElementById("codeEditor");
+  const runCodeButton = document.getElementById("runCode");
+  const resetCodeButton = document.getElementById("resetCode");
+  const clearConsoleButton = document.getElementById("clearConsole");
+
+  const initialCode = codeEditor.value;
+
+  function renderCards(filterText = "", mode = "all") {
+    const text = filterText.trim().toLowerCase();
+    cardsContainer.innerHTML = "";
+
+    methods
+      .filter(m => {
+        const matchesText =
+          !text ||
+          m.name.toLowerCase().includes(text) ||
+          m.description.toLowerCase().includes(text) ||
+          m.signature.toLowerCase().includes(text);
+        if (!matchesText) return false;
+
+        if (mode === "mut") return m.mutates;
+        if (mode === "nomut") return !m.mutates;
+        return true;
+      })
+      .forEach(m => {
+        const card = document.createElement("article");
+        card.className = "card";
+        const mutClass = m.mutates ? "mut" : "";
+        const mutLabel = m.mutates ? "Modifica el array" : "No modifica el array";
+
+        card.innerHTML = `
+          <div class="badge ${mutClass}">${mutLabel}</div>
+          <h2><code>${m.name}()</code> <small>${m.level}</small></h2>
+          <small>${m.signature}</small>
+          <p>${m.description}</p>
+          <div class="example">
+            <div style="font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:#9ca3af; margin-bottom:0.15rem;">Ejemplo</div>
+            <code>${m.example}</code>
+          </div>
+          <div class="buttons-row">
+            <button type="button" data-name="${m.name}" class="to-editor-btn">Enviar al editor</button>
+          </div>
+        `;
+
+        cardsContainer.appendChild(card);
+      });
+
+    if (!cardsContainer.children.length) {
+      cardsContainer.innerHTML = "<p>No se han encontrado métodos con ese filtro.</p>";
+    }
+  }
+
+  function logToConsole(text) {
+    const time = new Date().toLocaleTimeString();
+    const block = document.createElement("div");
+    block.style.marginBottom = "0.4rem";
+    block.innerHTML = `[${time}]\n${text}`;
+    consoleOutput.appendChild(block);
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+  }
+
+  // Mandar ejemplo al editor
+  cardsContainer.addEventListener("click", (e) => {
+    const btn = e.target.closest(".to-editor-btn");
+    if (!btn) return;
+    const name = btn.getAttribute("data-name");
+    const method = methods.find(m => m.name === name);
+    if (!method) return;
+
+    // Reemplazar \n por saltos de línea reales
+    const code = method.example.replace(/\\n/g, "\n");
+    codeEditor.value = code;
+    logToConsole("Ejemplo de " + method.name + "() cargado en el editor. Ahora puedes modificarlo.");
+  });
+
+  // Búsqueda y filtros
+  let currentMode = "all";
+
+  searchInput.addEventListener("input", () => {
+    renderCards(searchInput.value, currentMode);
+  });
+
+  showAllButton.addEventListener("click", () => {
+    searchInput.value = "";
+    currentMode = "all";
+    renderCards();
+  });
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentMode = btn.getAttribute("data-filter");
+      renderCards(searchInput.value, currentMode);
+    });
+  });
+
+  // Ejecutar código del editor
+  runCodeButton.addEventListener("click", () => {
+    const userCode = codeEditor.value;
+
+    // Consola "fake" para capturar los console.log del usuario
+    const logs = [];
+    const fakeConsole = {
+      log: (...args) => {
+        const line = args
+          .map(a => (typeof a === "object" ? JSON.stringify(a, null, 2) : String(a)))
+          .join(" ");
+        logs.push(line);
+      }
+    };
+
+    try {
+      const fn = new Function("console", userCode);
+      fn(fakeConsole);
+      if (logs.length === 0) {
+        logToConsole("(El código se ejecutó sin console.log)");
+      } else {
+        logToConsole(logs.join("\n"));
+      }
+    } catch (err) {
+      logToConsole("⚠️ Error: " + err.message);
+    }
+  });
+
+  // Reiniciar código básico
+  resetCodeButton.addEventListener("click", () => {
+    codeEditor.value = initialCode;
+    logToConsole("Código reiniciado al ejemplo básico.");
+  });
+
+  clearConsoleButton.addEventListener("click", () => {
+    consoleOutput.innerHTML = "Consola borrada. Escribe código y pulsa “Ejecutar código”. 🙂";
+  });
+
+  // Render inicial
+  renderCards();
+</script>
+</body>
+</html>
