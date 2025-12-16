@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>interaccionbucle</title>
+</head>
+<body>
+    <h1>Interacción con bucle while</h1>
+    <script>
+        let repetir =true;
+        while (repetir) {
+
+            let n1 =Number(prompt("Introduce un número"));
+            let n2 =Number(prompt("Introduce el segundo número"));
+            let resultado;
+             resultado = (isNaN(n1)||isNaN(n2))
+             ? null
+             :  n1+n2;
+            (resultado===null)
+            ?alert("Introduce un número válido")
+            :alert(`El resultado de la suma de ${n1}+${n2} es ${resultado}`);
+             
+
+            repetir = confirm("¿Quieres introducir nuevos números?");
+
+            }
+            alert("Programa finalizado");
+        
+    </script>
+    
+</body>
+</html>

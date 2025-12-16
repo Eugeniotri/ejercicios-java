@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For con suma</title>
+</head>
+<body>
+    <h1>For con suma</h1>
+    <script>
+        let cantidad = Number(prompt("¿Cuantos números quieres sumar?"));
+        ( isNaN(cantidad)||cantidad<=0)
+        ? alert("debes introducir número válido y mayor de 0")
+        :(()=>{
+            let suma =0;
+            for(let i=0;i<cantidad;i++){
+                let numero=Number(prompt("Introduce el número siguiente"));
+            numero= isNaN(numero)
+            ? (alert ("no es número válido"),0)
+            :numero;
+            
+            suma +=numero;
+            }
+            alert(`la suma total es ${suma}`);
+        })();
+        
+    </script>
+    
+</body>
+</html>

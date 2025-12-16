@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>repetir</title>
+</head>
+<body>
+    <h1>Repetir mensaje</h1>
+    <script>
+        let mensaje=prompt("Escribe el mensaje");
+        let veces=Number(prompt("Cuántas veces quieres repetir el mensaje"));
+if(isNaN(veces)|| veces<=0){
+    alert("Debes introducir un número válido");
+}else{
+ for (let i=1;i<=veces;i++){
+    alert(`la vez ${i} º ${mensaje}`);
+ }
+}
+
+    </script>
+    
+</body>
+</html>
