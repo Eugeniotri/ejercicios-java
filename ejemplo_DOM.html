@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejemplo DOM</title>
+</head>
+
+<body>
+
+    <p id="texto">Texto original</p>
+    <button id="boton">Cambiar texto</button>
+
+    <script>
+        const parrafo = document.getElementById("texto");
+        const boton = document.getElementById("boton");
+        boton.onclick = function () {
+            parrafo.innerText = "Texto cambiado con JavaScript";
+       document.body.style.backgroundColor = "lightblue";
+       
+        };
+        parrafo.style.color="red";
+
+    </script>
+
+</body>
+
+</html>
